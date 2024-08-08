@@ -1,115 +1,98 @@
 # CRUDD TASKS BACKEND
 
-Este proyecto es una API para la gestión de tareas, construida con Node.js, Express y MySQL. Proporciona operaciones CRUD básicas para la administración de tareas.
+API para gestionar tareas usando Node.js, Express y MySQL.
 
-## Tecnologías Utilizadas
+## Tecnologías
 
-- **Node.js**: Entorno de ejecución para JavaScript del lado del servidor.
-- **Express**: Framework para construir aplicaciones web en Node.js.
-- **mysql2**: Driver nativo para interactuar con bases de datos MySQL.
-- **express-validator**: Dependencia para las validaciones.
+- **Node.js**: Entorno de ejecución para JavaScript.
+- **Express**: Framework para Node.js.
+- **MySQL**: Base de datos relacional.
+- **mysql2**: Conector para MySQL.
+- **express-validator**: Para validar datos.
 
 ## Instalación
 
-1. Clona este repositorio:
+1. **Clona el repositorio:**
 
-    git clone https://github.com/Ticii18/crud-tasks-backend.git
+    ```bash
+    git clone https://github.com/13024RDO/crud-tasks-backend.git
+    ```
 
-2. Navega al directorio del proyecto:
+2. **Navega al directorio del proyecto:**
 
+    ```bash
     cd crud-tasks-backend
-
-3. Instala las dependencias:
-
-    npm install express morgan mysql2 express-validator
-
-4. Configura la base de datos MySQL. Asegúrate de tener una base de datos creada y actualiza los detalles de conexión en el archivo de configuración .
-   ## Base de Datos
-
-1. Crea una base de datos MySQL llamada `tasks_db`.
-
-    ```sql
-    CREATE DATABASE tasks_db;
     ```
 
-2. Crea una tabla llamada `tasks` con las siguientes columnas:
+3. **Instala las dependencias:**
 
-    ```sql
-    CREATE TABLE tasks (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        title VARCHAR(255) NOT NULL,
-        description TEXT,
-        isComplete BOOLEAN DEFAULT FALSE
-    );
+    ```bash
+    npm install
     ```
+
+4. **Configura la base de datos MySQL:**
+
+    - Crea una base de datos llamada `tasks_db`:
+
+      ```sql
+      CREATE DATABASE tasks_db;
+      ```
+
+    - Crea una tabla `tasks`:
+
+      ```sql
+      CREATE TABLE tasks (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          title VARCHAR(255) NOT NULL,
+          description TEXT,
+          isComplete BOOLEAN DEFAULT FALSE
+      );
+      ```
 
 ## Rutas API
 
-### POST /tasks
+- **POST /tasks**: Añade una nueva tarea.
+  - **Cuerpo de la solicitud:**
+    ```json
+    {
+      "title": "Título de la tarea",
+      "description": "Descripción de la tarea"
+    }
+    ```
+  - **Respuestas:**
+    - **201 Created**: Tarea creada.
+    - **400 Bad Request**: Error en los datos.
 
-Añade una nueva tarea.
+- **GET /tasks**: Obtiene todas las tareas.
+  - **Respuesta:**
+    - **200 OK**: Lista de tareas en JSON.
 
-**Cuerpo de la solicitud:**
-{
-  "title": "Título de la tarea",
-  "description": "Descripción de la tarea"
-}
+- **GET /tasks/:id**: Obtiene una tarea por ID.
+  - **Respuesta:**
+    - **200 OK**: Datos de la tarea.
+    - **404 Not Found**: Tarea no encontrada.
 
-**Respuesta:**
-- **Código de estado 201**: La tarea ha sido creada exitosamente.
-- **Código de estado 400**: Error en la validación de los datos.
+- **PUT /tasks/:id**: Actualiza una tarea por ID.
+  - **Cuerpo de la solicitud:**
+    ```json
+    {
+      "title": "Nuevo título",
+      "description": "Nueva descripción"
+    }
+    ```
+  - **Respuestas:**
+    - **200 OK**: Tarea actualizada.
+    - **404 Not Found**: Tarea no encontrada.
+    - **400 Bad Request**: Error en los datos.
 
-### GET /tasks
-
-Obtiene todas las tareas.
-
-**Respuesta:**
-- **Código de estado 200**: Lista de tareas en formato JSON.
-
-### GET /tasks/:id
-
-Obtiene una tarea específica por su ID.
-
-**Parámetros de la URL:**
-- `id`: ID de la tarea a obtener.
-
-**Respuesta:**
-- **Código de estado 200**: Datos de la tarea solicitada.
-- **Código de estado 404**: Tarea no encontrada.
-
-### PUT /tasks/:id
-
-Actualiza una tarea específica por su ID.
-
-**Parámetros de la URL:**
-- `id`: ID de la tarea a actualizar.
-
-**Cuerpo de la solicitud:**
-{
-  "title": "Nuevo título de la tarea",
-  "description": "Nueva descripción de la tarea"
-}
-
-**Respuesta:**
-- **Código de estado 200**: Tarea actualizada exitosamente.
-- **Código de estado 404**: Tarea no encontrada.
-- **Código de estado 400**: Error en la validación de los datos.
-
-### DELETE /tasks/:id
-
-Elimina una tarea específica por su ID.
-
-**Parámetros de la URL:**
-- `id`: ID de la tarea a eliminar.
-
-**Respuesta:**
-- **Código de estado 200**: Tarea eliminada exitosamente.
-- **Código de estado 404**: Tarea no encontrada.
+- **DELETE /tasks/:id**: Elimina una tarea por ID.
+  - **Respuesta:**
+    - **200 OK**: Tarea eliminada.
+    - **404 Not Found**: Tarea no encontrada.
 
 ## Ejecución
 
-Para iniciar el servidor, utiliza el siguiente comando:
+Inicia el servidor con:
 
-    npm run dev
-
-El servidor escuchará en el puerto especificado en la configuración.
+```bash
+npm run dev
