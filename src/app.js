@@ -1,5 +1,5 @@
-const express = require("express")
-const routes = require("./routes/tasks.routes")
+import express from "express";
+import {tasksRouters} from "./routes/tasks.routes.js"
 
 const app = express();
 
@@ -9,7 +9,7 @@ app.use(express.json())
 
 //rutas de usuarios
 
-app.use(routes)
+app.use("/api/",tasksRouters);
 
 
 app.listen(3000, ()=>{
